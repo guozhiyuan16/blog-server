@@ -1,0 +1,32 @@
+{
+  "name": "blog-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon app.js"
+  },
+  "dependencies": {
+    "archiver": "^5.3.0",
+    "axios": "^0.21.1",
+    "bcrypt-nodejs": "^0.0.3",
+    "chalk": "^4.1.2",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "koa-body-parser": "^1.1.2",
+    "koa-json-error": "^3.1.2",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^10.0.0",
+    "koa-send": "^5.0.1",
+    "koa2-cors": "^2.0.6",
+    "moment": "^2.29.1",
+    "mysql2": "^2.2.5",
+    "nodemailer": "^6.6.3",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.12"
+  }
+}
