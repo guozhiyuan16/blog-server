@@ -43,7 +43,7 @@ loadRouter(app);
 
 app.listen(config.PORT, async () => {
     db.sequelize
-        .sync({ force: false })
+        .sync({ force: true })
         .then(async ()=> {
             console.log('Connection has been established successfully.')
             console.log(`sever listen on http://127.0.0.1:${config.PORT}`)
@@ -51,14 +51,4 @@ app.listen(config.PORT, async () => {
         .catch(err=>{
             console.error('Unable to connect to the database:', err);
         })
-
-
-    // 链接数据库，初始化模型
-    // try {
-    //     await sequelize.authenticate();
-    //     console.log('Connection has been established successfully.');
-    //   } catch (error) {
-    //     console.error('Unable to connect to the database:', error);
-    // }
-
 })
