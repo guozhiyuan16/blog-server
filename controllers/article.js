@@ -41,6 +41,8 @@ class ArticleController {
                     authorId,
                     tags,
                     categories
+                },{
+                    include:[TagModel,CategoryModel]
                 })
                 ctx.body = data;
             }
