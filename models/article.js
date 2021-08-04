@@ -1,3 +1,4 @@
+const moment = require('moment');
 module.exports = (sequelize, dataTypes) => {
     const Article = sequelize.define(
         'article',
@@ -16,13 +17,19 @@ module.exports = (sequelize, dataTypes) => {
                 type: dataTypes.INTEGER(11),
                 defaultValue: 0
             },
-            createAt: {
+            createdAt: {
                 type: dataTypes.DATE,
                 defaultValue: dataTypes.NOW,
+                get(){
+                    return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss')
+                }
             },
-            updateAt: {
+            updatedAt: {
                 type: dataTypes.DATE,
                 defaultValue: dataTypes.NOW,
+                get(){
+                    return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss')
+                }
             }
         },
         {

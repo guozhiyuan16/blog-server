@@ -13,13 +13,19 @@ module.exports = (sequelize, dataTypes) => {
                 type: dataTypes.TEXT,
                 allowNull: false,
             },
-            createAt: {
+            createdAt: {
                 type: dataTypes.DATE,
                 defaultValue: dataTypes.NOW,
+                get(){
+                    return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss')
+                }
             },
-            updateAt: {
+            updatedAt: {
                 type: dataTypes.DATE,
                 defaultValue: dataTypes.NOW,
+                get(){
+                    return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss')
+                }
             }
         },
         {

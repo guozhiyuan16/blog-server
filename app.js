@@ -14,11 +14,14 @@ const db = require('./models');
 
 const app = new Koa();
 
-const processLogger = logger( log =>{
+const loggerWithTime = logger( log =>{
     console.log(chalk.cyan(moment().format('YYYY-MM-DD HH:mm:ss')) + log)
 })
 
-// const context = require('./utils/context');
+const context = require('./utils/context');
+Object.keys(context).forEach(key=>{
+    app.context[key] = context[key]
+})
 
 // middlewares
 // const authHandler = require('./middlewares/authHandler');
@@ -37,7 +40,7 @@ app
             postFormat: (e, { stack, ...rest }) => (process.env.NODE_ENV !== 'development' ? rest : { stack, ...rest })
         })
     )
-    .use(processLogger)
+    .use(loggerWithTime)
 
 loadRouter(app);
 

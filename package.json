@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "bcrypt-nodejs": "^0.0.3",
     "chalk": "^4.1.2",
+    "joi": "14.3.1",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
