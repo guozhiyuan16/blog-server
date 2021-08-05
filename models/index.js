@@ -8,7 +8,7 @@ const Op = Sequelize.Op;
 const sequelize = new Sequelize('blog','root','root',{
     host: 'localhost',
     dialect: 'mysql',
-    logging: false,
+    // logging: false,
     define:{
         timestamps: false, // 默认不加时间戳
         freezeTableName: true // 表名不加s

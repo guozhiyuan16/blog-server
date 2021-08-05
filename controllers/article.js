@@ -11,23 +11,28 @@ const {
 
 class ArticleController {
     static async create(ctx) {
-        console.log(ctx.request.body);
         const validator = ctx.validate(ctx.request.body, {
-            authorId: Joi.number().required(),
+            // authorId: Joi.number().required(),
             title: Joi.string().required(),
             content: Joi.string(),
             categoryList: Joi.array(),
             tagList: Joi.array()
         })
         if (validator) {
-            const {authorId, title, content, categoryList = [], tagList = []} = ctx.request.body;
+            const {
+                authorId,
+                title,
+                content,
+                categoryList = [],
+                tagList = []
+            } = ctx.request.body;
             const result = await ArticleModel.findOne({
                 where: {
                     title
                 }
             });
             if (result) {
-                ctx.throw(403, '创建失败，改文章已存在')
+                ctx.throw(403, '创建失败，该文章已存在')
             } else {
                 const tags = tagList.map(t => ({
                     name: t
@@ -41,28 +46,49 @@ class ArticleController {
                     authorId,
                     tags,
                     categories
-                },{
-                    include:[TagModel,CategoryModel]
+                }, {
+                    include: [TagModel, CategoryModel]
                 })
                 ctx.body = data;
             }
         }
     }
     static async findById(ctx) {
-        const id = ctx.params.id;
-        const result = await ArticleModel.findOne({
+        const data = await ArticleModel.findOne({
             where: {
                 id: ctx.params.id
-            }
+            },
+            include: [{
+                    model: TagModel,
+                    attributes: ['name']
+                },
+                {
+                    model: CategoryModel,
+                    attributes: ['name']
+                }
+            ],
+            row: true
         });
-        if(result){
-
-        }else{
-            ctx.throw(403,'没有找到对应文章')
+        if (data) {
+            ctx.body = data
+        } else {
+            ctx.throw(403, '没有找到对应文章')
         }
-        
     }
     static async updateById(ctx) {
+        const validator = ctx.validate({
+            articleId: ctx.params.id,
+            ...ctx.request.body
+        }, {
+            articleId: Joi.number().required(),
+            title: Joi.string().required(),
+            content: Joi.string(),
+            categories: Joi.array(),
+            tags: Joi.array()
+        })
+        if (validator) {
+            const { title, content,categories } = ctx.request.body;
+        }
         ctx.body = '更新'
     }
     static async deleteById(ctx) {
