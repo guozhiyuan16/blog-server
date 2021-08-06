@@ -19,45 +19,24 @@ class ArticleController {
             tagList: Joi.array()
         })
         if (validator) {
-            const {
-                authorId,
-                title,
-                content,
-                categoryList = [],
-                tagList = []
-            } = ctx.request.body;
-            const result = await ArticleModel.findOne({
-                where: {
-                    title
-                }
-            });
+            const { authorId,title,content, categoryList = [], tagList = [] } = ctx.request.body;
+            const result = await ArticleModel.findOne({ where: {title} });
             if (result) {
                 ctx.throw(403, '创建失败，该文章已存在')
             } else {
-                const tags = tagList.map(t => ({
-                    name: t
-                }))
-                const categories = categoryList.map(c => ({
-                    name: c
-                }))
-                const data = await ArticleModel.create({
-                    title,
-                    content,
-                    authorId,
-                    tags,
-                    categories
-                }, {
-                    include: [TagModel, CategoryModel]
-                })
+                const tags = tagList.map(t => ({ name: t }))
+                const categories = categoryList.map(c => ({ name: c }))
+                const data = await ArticleModel.create(
+                    { title, content, authorId, tags, categories}, 
+                    { include: [TagModel, CategoryModel] }
+                )
                 ctx.body = data;
             }
         }
     }
     static async findById(ctx) {
         const data = await ArticleModel.findOne({
-            where: {
-                id: ctx.params.id
-            },
+            where: { id: ctx.params.id },
             include: [{
                     model: TagModel,
                     attributes: ['name']
@@ -76,6 +55,7 @@ class ArticleController {
         }
     }
     static async updateById(ctx) {
+        console.log('update',ctx.request.body)
         const validator = ctx.validate({
             articleId: ctx.params.id,
             ...ctx.request.body
@@ -87,9 +67,11 @@ class ArticleController {
             tags: Joi.array()
         })
         if (validator) {
-            const { title, content,categories } = ctx.request.body;
+            const { title, content,categories,tags } = ctx.request.body;
+            await ArticleModel.update({title,content},{where:{id:ctx.params.id}})
+            ctx.body = '204'
         }
-        ctx.body = '更新'
+        
     }
     static async deleteById(ctx) {
         ctx.body = '删除'

@@ -11,7 +11,7 @@ const sequelize = new Sequelize('blog','root','root',{
     // logging: false,
     define:{
         timestamps: false, // 默认不加时间戳
-        freezeTableName: true // 表名不加s
+        freezeTableName: true // 表名等于模型名 （默认表名等于模型名+s）
     }
 })
 
