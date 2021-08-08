@@ -49,7 +49,8 @@ class UserController {
             if(result){
                 ctx.throw(403,'邮箱已被注册');
             }else{
-               const user = await UserModel.findOne({wher:{ username }})
+               const user = await UserModel.findOne({where:{ username }})
+               console.log(user);
                if(user){
                     ctx.throw(403,'用户名已存在');
                }else{
@@ -57,7 +58,7 @@ class UserController {
                    const _password = await encrypt(password);
                    // 创建用户
                    await UserModel.create({ username, password:_password,email })
-                   ctx.status = 204;
+                   ctx.body = "用户注册成功"
                }
             }
         }
