@@ -20,7 +20,12 @@ const config = {
           },
           timezone: '+08:00'
         }
-      }
+    },
+    TOKEN:{
+      exp: '1h',
+      secret:'test'
+    }
+
 }
 
 module.exports = config;

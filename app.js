@@ -46,7 +46,7 @@ loadRouter(app);
 
 app.listen(config.PORT, async () => {
     db.sequelize
-        .sync({ force: true })
+        .sync({ force: false })
         .then(async ()=> {
             console.log('Connection has been established successfully.')
             console.log(`sever listen on http://127.0.0.1:${config.PORT}`)
