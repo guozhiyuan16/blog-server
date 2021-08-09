@@ -1,3 +1,4 @@
+const moment = require('moment');
 module.exports = (sequelize, dataTypes) => {
     const User = sequelize.define(
         'user',
@@ -12,7 +13,7 @@ module.exports = (sequelize, dataTypes) => {
                 allowNull: false
             },
             password: {
-                type: dataTypes.STRING(50),
+                type: dataTypes.STRING(200),
                 comment: '通过 bcrypt 加密后的密码' // 仅限站内注册用户
             },
             email: dataTypes.STRING(50),

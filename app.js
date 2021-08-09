@@ -24,7 +24,7 @@ Object.keys(context).forEach(key=>{
 })
 
 // middlewares
-// const authHandler = require('./middlewares/authHandler');
+const authHandler = require('./middlewares/authHandler');
 
 app
     .use(cors())
@@ -40,6 +40,7 @@ app
             postFormat: (e, { stack, ...rest }) => (process.env.NODE_ENV !== 'development' ? rest : { stack, ...rest })
         })
     )
+    .use(authHandler)
     .use(loggerWithTime)
 
 loadRouter(app);
