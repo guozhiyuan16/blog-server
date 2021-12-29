@@ -58,10 +58,13 @@ class UserController {
                    const _password = await encrypt(password);
                    // 创建用户
                    await UserModel.create({ username, password:_password,email })
-                   ctx.body = "用户注册成功"
+                   ctx.body = { code: 200, msg: '注册成功' };
                }
             }
         }
+    }
+    static async validate(ctx){
+        
     }
 }
 

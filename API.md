@@ -1,1 +1,8 @@
-# 接口文档
+## 后台开发文档
+
+### 启动本地mysql
+
+```bash
+mysql.server start
+```
+

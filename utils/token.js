@@ -4,11 +4,11 @@ const createToken = options => {
     return jwt.sign(options,TOKEN.secret,{expiresIn:TOKEN.exp});
 }
 
-const valdateToken = () => {
-    
+const validateToken = () => {
+    console.log('验证token')
 }
 
 module.exports = {
     createToken,
-    valdateToken
+    validateToken
 }
